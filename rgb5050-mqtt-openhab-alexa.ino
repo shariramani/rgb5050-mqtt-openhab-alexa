@@ -1,8 +1,5 @@
 /*
-  RGBLedExample
-  Example for the RGBLED Library
-  Created by Bret Stateham, November 13, 2014
-  You can get the latest version from http://github.com/BretStateham/RGBLED
+  Based on RGBLED Library Created by Bret Stateham http://github.com/BretStateham/RGBLED
   sh: Changed 255 to 1024 in RGBLED.cpp
   red_esp= map(value_red_esp, 0, 255, 0, 1024);
   green_esp= map(value_green_esp, 0, 255, 0, 1024);
@@ -17,8 +14,6 @@
 #endif
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
-//#define ESPALEXA_DEBUG    //uncomment to see debug info in serial monitor
-//#include <Espalexa.h>
 #include <ESP8266Ping.h>
 #include <NTPClient.h>
 #include <TimeLib.h> //used in function displaying power on time in debug page
@@ -27,8 +22,8 @@
 #include "index.h"
 #include <PubSubClient.h>
 
-const char* ssid = "Suresh";
-const char* password = "mvls$1488";
+const char* ssid = "YOUR SSID";
+const char* password = "YOUR PASSWORD";
 
 IPAddress staticIP(192, 168, 1, 158);
 IPAddress gateway(192, 168, 1, 1);
@@ -76,10 +71,6 @@ ESP8266HTTPUpdateServer httpUpdater;
 ///////////////////////////////////////////////////////////////////////////////
 #define HTTP_PORT 80
 
-// QUICKFIX...See https://github.com/esp8266/Arduino/issues/263
-//#define min(a,b) ((a)<(b)?(a):(b))
-//#define max(a,b) ((a)>(b)?(a):(b))
-
 ESP8266WebServer server(HTTP_PORT);
 ///////////////////////////////////////////////////////////////////////
 
@@ -115,11 +106,6 @@ const char* mqtt_user = "admin";
 const char* mqtt_password = "password";
 const char* mqtt_colorLight_state_topic = "kitchenLed/color/state";
 const char* mqtt_colorLight_command_topic = "kitchenLed/color/command";
-
-//const char* mqtt_colorLight_clock_state = "colorLight/clock/state";
-//const char* mqtt_colorLight_clock_command = "colorLight/clock/command";
-///  const char* mqtt_colorLight_clock_dimmer_state = "kitchenLed/clock/dimmer/state";
-///  const char* mqtt_colorLight_clock_dimmer_command = "kitchenLed/clock/dimmer/command";
 
 ///////////////////////////////
 
@@ -207,7 +193,7 @@ void setup() {
 
 
   //Set the RGBLED to show RED only
-  rgbLed.writeRGB(255, 0, 0);
+  rgbLed.writeRGB(1024, 0, 0);
   printRgbValues();
   delay(1000);
 
@@ -282,7 +268,7 @@ void loop() {
     //printRgbValues() prints various LED values to the Serial port
     //you can monitor the serial port to see the values printed
     //The delay(delayMs) waits for 1 second to be able to see the color shown
-    rgbLed.writeRGB(255, 0, 0);
+    rgbLed.writeRGB(1024, 0, 0);
     printRgbValues();
     handleClientInDelay(delayMs);
 
